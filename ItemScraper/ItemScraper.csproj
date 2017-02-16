@@ -44,7 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Armour.cs" />
+    <Compile Include="Classes\Currency.cs" />
+    <Compile Include="Classes\Jewelry.cs" />
     <Compile Include="Classes\PSMods.cs" />
+    <Compile Include="Classes\Skills.cs" />
     <Compile Include="Classes\Url.cs" />
     <Compile Include="Classes\Weapon.cs" />
     <Compile Include="Program.cs" />
