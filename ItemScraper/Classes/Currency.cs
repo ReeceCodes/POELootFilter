@@ -8,5 +8,8 @@ namespace ItemScraper.Classes
 {
     class Currency
     {
+        public string Name { get; set; }
+        public string StackSize { get; set; }
+        public string Description { get; set; }
     }
 }
