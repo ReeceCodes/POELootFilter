@@ -21,10 +21,10 @@ namespace ItemScraper.Classes
             URLS.Add("https://www.pathofexile.com/item-data/jewelry", 5);
             URLS.Add("https://www.pathofexile.com/item-data/currency", 6);
             URLS.Add("https://www.pathofexile.com/skills/supportgems", 7);
-            URLS.Add("https://www.pathofexile.com/skills/intelligence", 8);
-            URLS.Add("https://www.pathofexile.com/skills/dexterity", 9);
-            URLS.Add("https://www.pathofexile.com/skills/strength", 10);
-            URLS.Add("https://www.pathofexile.com/skills/remoteskills", 11);
+            URLS.Add("https://www.pathofexile.com/skills/intelligence", 7);
+            URLS.Add("https://www.pathofexile.com/skills/dexterity", 7);
+            URLS.Add("https://www.pathofexile.com/skills/strength", 7);
+            URLS.Add("https://www.pathofexile.com/skills/remoteskills", 7);
 
         }
     }

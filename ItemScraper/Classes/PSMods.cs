@@ -14,6 +14,8 @@ namespace ItemScraper.Classes
         public string Value { get; set; }
         public string Type { get; set; }
 
+        public PSMods() { }
+
         public PSMods(string name, string level, string stat, string value, string type)
         {
             Name = name;

@@ -12,5 +12,7 @@ namespace ItemScraper.Classes
         public bool Support { get; set; }
         public bool Mine { get; set; }
         public string MainAttribute { get; set; }
+
+        public Skills() { }
     }
 }

@@ -19,5 +19,7 @@ namespace ItemScraper.Classes
         public string Implicit { get; set; }
         public string ImplicitValue { get; set; }
 
+        public Weapon() { }
+
     }
 }

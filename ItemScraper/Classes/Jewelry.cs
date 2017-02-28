@@ -12,5 +12,7 @@ namespace ItemScraper.Classes
         public string Level { get; set; }
         public string Implicit { get; set; }
         public string ImplicitValue { get; set; }
+
+        public Jewelry() { }
     }
 }
