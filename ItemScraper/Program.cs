@@ -39,26 +39,54 @@ namespace ItemScraper
                 p.ProcessData(u.Key, u.Value);
             }
 
+            //this is horrible...why did i stuff everything into classes only to loop over it all again to get it into the db...
+            //maybe i couldn't decide which db to use or something about how i was going to get all the fields for a record within the loop that was parsing
+            //either way. not very performant but if it works isn't that what matters
+
+            //add to db
+            //i could see this being relational data, all items have a class/type, would be easier to do filtering etc
+            //i have never used nosql though and i could definitely see each item as being standalone, ie i wouldn't need predefined table structures
+            //would one work better than the other for showing items that are related? ie of weapons get all swords, all one hand swords, etc
+            //researching now since I am now at the point where I need to store the data I have scraped from the urls and then i can work on how to make the front end off that
+
+            //all the classes are filled. I should be able to put them into a database now right!?
+            var e = 0;
+
         }
 
         public string GetHtml(string url)
         {
-            WebRequest request = WebRequest.Create(url);
-            WebResponse response = request.GetResponse();
-            Stream data = response.GetResponseStream();
-            string OfTheJedi = "";
-            using (StreamReader sr = new StreamReader(data))
+            try
             {
-                OfTheJedi = sr.ReadToEnd();
+
+
+                WebRequest request = WebRequest.Create(url);
+                WebResponse response = request.GetResponse();
+                Stream data = response.GetResponseStream();
+                string OfTheJedi = "";
+                using (StreamReader sr = new StreamReader(data))
+                {
+                    OfTheJedi = sr.ReadToEnd();
+                }
+                return OfTheJedi;
+            }
+            catch (Exception ex)
+            {
+                return ""; //maybe a 404 or 500
             }
 
-            return OfTheJedi;
         }
 
         //type is here so that I might need to change the html removal for each page and to tell which class to build as (some urls will use the same class)
         public void ProcessData(string url, int type)
         {
             string data = GetHtml(url);
+
+            //maybe 404 or just nothing there or whatever
+            if (data.Trim() == "")
+            {
+                return;
+            }
 
             //I didn't think this trough well and I hate this idea but for each td assign a count and based on that set the properties
             //next plan might be to replace the newlines in between <td> and then can do a for loop on them for each line
@@ -70,7 +98,7 @@ namespace ItemScraper
             int WeaCount = 0;
 
             string FilteredData = RemoveHTML(data).Replace("\n", "~1~").Replace("\t", ""); //use my own place holders instead of \n or \t
-
+            
             foreach (string s in FilteredData.Split(new string[] { "~1~" }, StringSplitOptions.None)) //I would have thought \r\n but apparently not
             {
                 if (s.Trim() == "")
@@ -101,6 +129,7 @@ namespace ItemScraper
                             CurrJew = new Jewelry();
                             break;
                         case 6: //Currency
+                            SaveClass(type);
                             CurrCurr = new Currency();
                             break;
                         case 7: //Skills
@@ -283,15 +312,19 @@ namespace ItemScraper
                             CurrCount++;
                             switch (CurrCount)
                             {
-                                case 1:
+                                case 1: //image                                    
                                     break;
                                 case 2:
+                                    CurrCurr.Name = s.Replace("<td>", "").Replace("</td>", "");
                                     break;
                                 case 3:
+                                    CurrCurr.StackSize = s.Replace("<td>", "").Replace("</td>", "");
                                     break;
                                 case 4:
+                                    CurrCurr.Description = s.Replace("<td>", "").Replace("</td>", "");
                                     break;
                                 default:
+                                    CurrCount = 0;
                                     break;
 
                             }
@@ -322,7 +355,7 @@ namespace ItemScraper
                     //omg what is this!?
                     continue;
                 }
-            }
+            }        
 
         }
 
